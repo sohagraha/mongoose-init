@@ -13,3 +13,21 @@ export const createUser = async (
     return undefined;
   }
 };
+
+export const getAllUsers = async (): Promise<IUser[] | undefined> => {
+  try {
+    const users = await User.find();
+    return users;
+  } catch (err) {
+    return undefined;
+  }
+};
+
+export const singleUser = async (id: string): Promise<IUser | null> => {
+  try {
+    const user = await User.findById(id);
+    return user;
+  } catch (err) {
+    return null;
+  }
+};

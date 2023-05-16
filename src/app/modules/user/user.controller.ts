@@ -1,19 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createUser } from "./user.service";
-import User from "./user.model";
-
-export const getUsers = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const users = await User.find();
-  res.status(200).json({
-    status: "success",
-    message: "Users Fetched",
-    data: users,
-  });
-};
+import { createUser, getAllUsers, singleUser } from "./user.service";
 
 export const createNewUser = async (
   req: Request,
@@ -35,6 +21,32 @@ export const createNewUser = async (
       data: user,
     });
   }
+};
+
+export const getUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const users = await getAllUsers();
+  res.status(200).json({
+    status: "success",
+    message: "Users Fetched",
+    data: users,
+  });
+};
+
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = await singleUser(req.params.id);
+  res.status(200).json({
+    status: "success",
+    message: "User Fetched",
+    data: user,
+  });
 };
 
 // Route -> Controller -> Service -> Model
