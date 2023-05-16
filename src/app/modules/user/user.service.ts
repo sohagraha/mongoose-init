@@ -1,28 +1,15 @@
+import IUser from "./user.interface";
 import User from "./user.model";
 
-export const createUser = async () => {
+export const createUser = async (
+  payload: IUser
+): Promise<IUser | undefined> => {
   try {
-    const user = new User({
-      id: "6",
-      role: "student",
-      password: "123456",
-      name: {
-        firstName: "Rahul",
-        middleName: "Kumar",
-        lastName: "Singh",
-      },
-      dateOfBirth: "1998-01-01",
-      gender: "male",
-      email: "",
-      contactNo: "1234567890",
-      emergencyContactNo: "1234567890",
-      presentAddress: "Kolkata",
-      permanentAddress: "Kolkata",
-    });
+    const user = new User(payload);
     await user.save();
     console.log("User Created");
     return user;
   } catch (err) {
-    return undefined
+    return undefined;
   }
 };
