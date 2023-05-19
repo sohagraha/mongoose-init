@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createUser, getAllUsers, singleUser } from "./user.service";
+import { createUser, getAllAdminUsers, getAllUsers, singleUser } from "./user.service";
 
 export const createNewUser = async (
   req: Request,
@@ -46,6 +46,19 @@ export const getUserById = async (
     status: "success",
     message: "User Fetched",
     data: user,
+  });
+};
+
+export const getAdmiUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const users = await getAllAdminUsers();
+  res.status(200).json({
+    status: "success",
+    message: "Users Fetched",
+    data: users,
   });
 };
 
